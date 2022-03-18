@@ -15,8 +15,9 @@ jobs:
           WEBHOOK: ${{secrets.WEBHOOK_CHAT}}
         if: ${{github.event.issue}}
         run: |
-          echo $WEBHOOK
-          curl --location --request POST '' \
+          IFS=':' read -r -a array <<< "$WEBHOOK"
+          echo "$array[0]"
+          curl --location --request POST '$WEBHOOK' \
           --header 'Content-Type: application/json' \
           --data-raw '{
               "cards": [
