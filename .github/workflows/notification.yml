@@ -11,9 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send notification on issue creation
+        env: 
+          WEBHOOK: ${{secrets.WEBHOOK_CHAT}}
         if: ${{github.event.issue}}
         run: |
-          curl --location --request POST '${{secrets.WEBHOOK_CHAT}}' \
+          echo $WEBHOOK
+          curl --location --request POST '' \
           --header 'Content-Type: application/json' \
           --data-raw '{
               "cards": [
