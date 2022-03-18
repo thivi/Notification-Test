@@ -16,7 +16,7 @@ jobs:
         if: ${{github.event.issue}}
         run: |
           IFS=':' read -r -a array <<< "$WEBHOOK"
-          echo "$array[0]"
+          echo "$array[1]"
           curl --location --request POST '$WEBHOOK' \
           --header 'Content-Type: application/json' \
           --data-raw '{
