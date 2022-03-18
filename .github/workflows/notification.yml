@@ -13,8 +13,9 @@ jobs:
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
         run: |
-          url={${{secrets.WEBHOOK_CHAT}}%$'\n'}
-          curl --location --request POST "${{secrets.WEBHOOK_CHAT}}" \
+          url=${{secrets.WEBHOOK_CHAT}}
+          url={url%$'\n'}
+          curl --location --request POST "$url" \
           --header 'Content-Type: application/json' \
           --data-raw '{
               "cards": [
