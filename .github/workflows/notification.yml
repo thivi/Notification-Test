@@ -18,7 +18,7 @@ jobs:
       - name: Escape Body
         id: escapeBody
         run: |
-          export body=$(printf "%q" ${{ github.event.issue.body }} |  sed "s/'//g")
+          export body=$((printf "%q" ${{ github.event.issue.body }}) |  sed "s/'//g")
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
