@@ -13,12 +13,12 @@ jobs:
       - name: Escape Title
         id: escapeTitle
         run: |
-          export title=$(echo ${{ github.event.issue.title }} |  sed 's/\'/\\'')
+          export title=$(echo ${{ github.event.issue.title }} |  sed 's/''/\''/')
           echo "title=$title" >> $GITHUB_OUTPUT
       - name: Escape Body
         id: escapeBody
         run: |
-          export body=$(echo ${{ github.event.issue.body }} |  sed 's/\'/\\'')
+          export body=$(echo ${{ github.event.issue.body }} |  sed 's/''/\''/')
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
