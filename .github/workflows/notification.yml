@@ -30,7 +30,7 @@ jobs:
                     {
                         "card": {
                             "header": {
-                                "title": 'PR: ${{ steps.escapeTitle.outputs.title }}',
+                                "title": "PR: ${{ steps.escapeTitle.outputs.title }}",
                                 "subtitle": "By ${{ github.event.issue.user.login }} in Asgardeo JS SDK Repo",
                                 "imageUrl": "https://avatars.githubusercontent.com/u/583231?v=4",
                                 "imageType": "CIRCLE",
@@ -57,7 +57,7 @@ jobs:
                                         },
                                         {
                                             "textParagraph": {
-                                                "text": '${{ steps.escapeBody.outputs.body }}'
+                                                "text": "${{ steps.escapeBody.outputs.body }}"
                                             }
                                         }
                                     ]
