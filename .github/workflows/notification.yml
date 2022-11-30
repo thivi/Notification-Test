@@ -47,7 +47,7 @@ jobs:
                                         },
                                         {
                                             "textParagraph": {
-                                                "text": "${{ github.event.issue.body }}"
+                                                "text": '${{ github.event.issue.body }}'
                                             }
                                         }
                                     ]
