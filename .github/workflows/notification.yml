@@ -13,6 +13,8 @@ jobs:
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
         run: |
+          title = ${{ github.event.issue.title }} | tr "'" "\'"
+          body =  ${{ github.event.issue.body }} | tr "'" "\'"
           curl --location --request POST '${{secrets.WEBHOOK_CHAT}}' \
           --header 'Content-Type: application/json' \
           --data-raw '{
@@ -20,7 +22,7 @@ jobs:
                     {
                         "card": {
                             "header": {
-                                "title": "PR: ${{ github.event.issue.title }}",
+                                "title": "PR: $title",
                                 "subtitle": "By ${{ github.event.issue.user.login }} in Asgardeo JS SDK Repo",
                                 "imageUrl": "https://avatars.githubusercontent.com/u/583231?v=4",
                                 "imageType": "CIRCLE",
@@ -47,7 +49,7 @@ jobs:
                                         },
                                         {
                                             "textParagraph": {
-                                                "text": '${{ github.event.issue.body }}'
+                                                "text": '$body'
                                             }
                                         }
                                     ]
