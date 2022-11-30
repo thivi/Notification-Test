@@ -13,8 +13,8 @@ jobs:
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
         run: |
-          title = ${{ github.event.issue.title }} | tr "'" "\'"
-          body =  ${{ github.event.issue.body }} | tr "'" "\'"
+          title=${{ github.event.issue.title }} | tr "'" "\'"
+          body=${{ github.event.issue.body }} | tr "'" "\'"
           curl --location --request POST '${{secrets.WEBHOOK_CHAT}}' \
           --header 'Content-Type: application/json' \
           --data-raw '{
