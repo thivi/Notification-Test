@@ -23,7 +23,7 @@ jobs:
                     {
                         "card": {
                             "header": {
-                                "title": 'PR: "$title"',
+                                "title": 'PR: "$(echo "${{ github.event.issue.title }}" | tr "'" "\'")"',
                                 "subtitle": "By ${{ github.event.issue.user.login }} in Asgardeo JS SDK Repo",
                                 "imageUrl": "https://avatars.githubusercontent.com/u/583231?v=4",
                                 "imageType": "CIRCLE",
