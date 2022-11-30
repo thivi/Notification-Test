@@ -13,7 +13,7 @@ jobs:
       - name: Escape Title
         id: escapeTitle
         run: |
-          export title=$(echo ${{ github.event.issue.title }} |  sed 's/'/\'/')
+          export title=$(echo ${{ github.event.issue.title }} |  sed 's/''//')
           echo "title=$title" >> $GITHUB_OUTPUT
       - name: Escape Body
         id: escapeBody
