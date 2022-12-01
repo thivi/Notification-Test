@@ -10,20 +10,38 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Escape Title
-        id: escapeTitle
+      - name: Escape Issue Title
+        if: ${{github.event.issue}}
+        id: escapeIssueTitle
         env: 
           TITLE: ${{ github.event.issue.title }}
         run: |
           export title=$(echo $TITLE | sed "s/'//g" | sed 's/"//g')
-          echo "title=$title" >> $GITHUB_OUTPUT
-      - name: Escape Body
-        id: escapeBody
+          echo "issueTitle=$title" >> $GITHUB_OUTPUT
+      - name: Escape Issue Body
+        if: ${{github.event.issue}}
+        id: escapeIssueBody
         env:
           BODY: ${{ github.event.issue.body }}
         run: |
           export body=$(echo $BODY | sed "s/'//g" | sed 's/\"//g')
-          echo "body=$body" >> $GITHUB_OUTPUT
+          echo "issueBody=$body" >> $GITHUB_OUTPUT
+      - name: Escape PR Title
+        if: ${{github.event.pull_request}}
+        id: escapePRTitle
+        env: 
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          export title=$(echo $TITLE | sed "s/'//g" | sed 's/"//g')
+          echo "pRTitle=$title" >> $GITHUB_OUTPUT
+      - name: Escape PR Body
+        if: ${{github.event.pull_request}}
+        id: escapePRBody
+        env:
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          export body=$(echo $BODY | sed "s/'//g" | sed 's/\"//g')
+          echo "pRBody=$body" >> $GITHUB_OUTPUT
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
         run: |
@@ -34,7 +52,7 @@ jobs:
                     {
                         "card": {
                             "header": {
-                                "title": "PR: ${{ steps.escapeTitle.outputs.title }}",
+                                "title": "PR: ${{ steps.escapeIssueTitle.outputs.issueTitle }}",
                                 "subtitle": "By ${{ github.event.issue.user.login }} in Asgardeo JS SDK Repo",
                                 "imageUrl": "https://avatars.githubusercontent.com/u/583231?v=4",
                                 "imageType": "CIRCLE",
@@ -61,7 +79,7 @@ jobs:
                                         },
                                         {
                                             "textParagraph": {
-                                                "text": "${{ steps.escapeBody.outputs.body }}"
+                                                "text": "${{ steps.escapeIssueBody.outputs.issueBody }}"
                                             }
                                         }
                                     ]
@@ -82,7 +100,7 @@ jobs:
                     {
                         "card": {
                             "header": {
-                                "title": 'PR: ${{ github.event.pull_request.title }}',
+                                "title": "PR: ${{ steps.escapePRTitle.outputs.prTitle }}",
                                 "subtitle": 'By ${{ github.event.pull_request.user.login }} in Asgardeo JS SDK Repo',
                                 "imageUrl": "https://avatars.githubusercontent.com/u/583231?v=4",
                                 "imageType": "CIRCLE",
@@ -109,7 +127,7 @@ jobs:
                                         },
                                         {
                                             "textParagraph": {
-                                                "text": '${{ github.event.issue.body }} | tr "'" "\'"'
+                                                "text": "PR: ${{ steps.escapePRBody.outputs.pRBody }}",
                                             }
                                         }
                                     ]
