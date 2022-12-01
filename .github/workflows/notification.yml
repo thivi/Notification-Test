@@ -22,7 +22,7 @@ jobs:
         env:
           BODY: ${{ github.event.issue.body }}
         run: |
-          export body=$(printf "%q" $BODY)
+          export body=$(echo $BODY |  sed "s/'/''/g")
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
