@@ -13,7 +13,7 @@ jobs:
       - name: Escape Issue Title
         if: ${{github.event.issue}}
         id: escapeIssueTitle
-        env: 
+        env:
           TITLE: ${{ github.event.issue.title }}
         run: |
           export title=$(echo $TITLE | sed "s/'//g" | sed 's/"//g')
@@ -29,7 +29,7 @@ jobs:
       - name: Escape PR Title
         if: ${{github.event.pull_request}}
         id: escapePRTitle
-        env: 
+        env:
           TITLE: ${{ github.event.pull_request.title }}
         run: |
           export title=$(echo $TITLE | sed "s/'//g" | sed 's/"//g')
@@ -101,7 +101,7 @@ jobs:
                         "card": {
                             "header": {
                                 "title": "PR: ${{ steps.escapePRTitle.outputs.prTitle }}",
-                                "subtitle": 'By ${{ github.event.pull_request.user.login }} in Asgardeo JS SDK Repo',
+                                "subtitle": "By ${{ github.event.pull_request.user.login }} in Asgardeo JS SDK Repo",
                                 "imageUrl": "https://avatars.githubusercontent.com/u/583231?v=4",
                                 "imageType": "CIRCLE",
                                 "imageAltText": "GitHub Avatar"
