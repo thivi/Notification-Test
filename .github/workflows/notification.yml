@@ -15,14 +15,14 @@ jobs:
         env: 
           TITLE: ${{ github.event.issue.title }}
         run: |
-          export title=$(echo $TITLE | sed "s/'/''/g" -e 's/\"/\\"/g')
+          export title=$(echo $TITLE | sed "s/'//g" -e 's/\"/\\"/g')
           echo "title=$title" >> $GITHUB_OUTPUT
       - name: Escape Body
         id: escapeBody
         env:
           BODY: ${{ github.event.issue.body }}
         run: |
-          export body=$(echo $BODY | sed "s/'/''/g" -e 's/\"/\\"/g')
+          export body=$(echo $BODY | sed "s/'//g" -e 's/\"/\\"/g')
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
