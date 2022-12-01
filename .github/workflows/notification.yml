@@ -12,13 +12,17 @@ jobs:
     steps:
       - name: Escape Title
         id: escapeTitle
+        env: 
+          TITLE: ${{ github.event.issue.title }}
         run: |
-          export title=$(printf "%q" ${{ github.event.issue.title }} |  sed "s/'//g")
+          export title=$(printf "%q" $TITLE |  sed "s/'//g")
           echo "title=$title" >> $GITHUB_OUTPUT
       - name: Escape Body
         id: escapeBody
+        env:
+          BODY: ${{ github.event.issue.body }}
         run: |
-          export body=$(printf "%q" '${{ toJSON(github.event.issue) }}')
+          export body=$(printf "%q" $BODY)
           echo "body=$body" >> $GITHUB_OUTPUT
       - name: Send notification on issue creation
         if: ${{github.event.issue}}
