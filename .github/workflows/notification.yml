@@ -127,7 +127,7 @@ jobs:
                                         },
                                         {
                                             "textParagraph": {
-                                                "text": "PR: ${{ steps.escapePRBody.outputs.pRBody }}",
+                                                "text": "${{ steps.escapePRBody.outputs.pRBody }}",
                                             }
                                         }
                                     ]
