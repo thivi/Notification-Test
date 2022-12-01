@@ -15,7 +15,7 @@ jobs:
         env: 
           TITLE: ${{ github.event.issue.title }}
         run: |
-          export title=$(echo $TITLE | sed "s/'//g" -e 's/\"/\\"/g')
+          export title=$(echo $TITLE | sed "s/''//g" -e 's/\"/\\"/g')
           echo "title=$title" >> $GITHUB_OUTPUT
       - name: Escape Body
         id: escapeBody
